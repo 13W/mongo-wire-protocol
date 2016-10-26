@@ -1,0 +1,29 @@
+{
+  "name": "mongo-wire-protocol",
+  "version": "1.0.0",
+  "description": "MongoDB Wire Protocol",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/13w/mongo-wire-protocol.git"
+  },
+  "keywords": [
+    "mongodb",
+    "client",
+    "server",
+    "wire",
+    "protocol"
+  ],
+  "author": "Vladimir <zero@13w.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/13w/mongo-wire-protocol/issues"
+  },
+  "homepage": "https://github.com/13w/mongo-wire-protocol#readme",
+  "dependencies": {
+    "bson": "^0.5.6"
+  }
+}
