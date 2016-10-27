@@ -59,6 +59,8 @@ function MongoWireProtocol(data) {
     }
 }
 
+MongoWireProtocol.prototype.requestIdCounter = 0;
+
 MongoWireProtocol.prototype.opCodes = {
     OP_REPLY: 1,
     OP_MSG: 1000,
@@ -289,7 +291,7 @@ MongoWireProtocol.prototype.pack = function pack() {
         buffers = [header],
         spec = this.specs[this.opCode];
 
-    header.writeInt32LE(this.requestId || 0, 4);
+    header.writeInt32LE(this.requestId || this.requestIdCounter++ || 0, 4);
     header.writeInt32LE(this.responseTo || 0, 8);
     header.writeInt32LE(this.opCode, 12);
 
@@ -313,8 +315,12 @@ MongoWireProtocol.prototype.pack = function pack() {
         if (optional && value === undefined) {
             continue;
         }
-        if (value === undefined && key !== 'flags') {
+        if (value === undefined && key !== 'flags' && key !== 'ZERO') {
             throw new Error(`Failed to format data. Key '${key}' is missed.`);
+        }
+
+        if (key === 'ZERO') {
+            value = 0;
         }
 
         switch (type) {
